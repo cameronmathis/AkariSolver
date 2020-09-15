@@ -19,6 +19,7 @@ public class Solver {
      * @return the solution as a two dimensional array.
      */
     static int[][] solveProblem( int[][] table, int tableX, int tableY) {
+        // place bulbs where it is forced by a black cell
         boolean bulbsArePlaceable= true;
         while (bulbsArePlaceable) {
             bulbsArePlaceable = false;
