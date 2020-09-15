@@ -1,0 +1,5 @@
+Solution for: problems/a1.txt
+
+Bulb coordinates: 
+1 3
+2 4
