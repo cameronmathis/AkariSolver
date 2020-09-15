@@ -13,7 +13,9 @@ This is a Java Application that solves Akari Puzzles.
 This is a project I decided I wanted to do after a HW assignment from one of my course at Auburn University. I was curious if I could do it, and if so how long it would take.
 
 ## Setup
-In order to run, clone this repo onto your local machine.
+In order to run, clone this repo onto your local machine. </br>
+Run the run.sh script. Accepted format is:
+>./run.sh [problem file path+name] [solution file path+name]
 
 ## Features
 Implemented:
@@ -32,4 +34,4 @@ Language used: Java </br>
 Version used: 11.0.8
 
 ## Contact
-Created by [@cameronmathis] - feel free to contact me!
+Created by [@cameronmathis](https://github.com/cameronmathis/) - feel free to contact me!
