@@ -6,6 +6,7 @@ This is a Java Application that solves Akari Puzzles.
 * [Setup](#setup)
 * [Features](#features)
 * [Status](#status)
+* [Language details](#Language-details)
 * [Contact](#contact)
 
 ## General info
@@ -25,6 +26,10 @@ To-do list:
 
 ## Status
 Project is: _in progress_
+
+## Language details
+Language used: Java </br>
+Version used: 11.0.8
 
 ## Contact
 Created by [@cameronmathis] - feel free to contact me!
