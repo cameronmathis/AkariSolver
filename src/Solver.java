@@ -33,9 +33,8 @@ public class Solver {
      * @param table the problem table.
      * @param tableX the x length of the problem table.
      * @param tableY the y length of the problem table.
-     * @return the table with illegal cells marked.
      */
-    private static int[][] markIllegalCells(int[][] table, int tableX, int tableY) {
+    private static void markIllegalCells(int[][] table, int tableX, int tableY) {
         for (int x = 0; x < tableX; x++) {
             for (int y = 0; y < tableY; y++) {
                 // check to see if cell is a 0 black
@@ -60,7 +59,6 @@ public class Solver {
                 }
             }
         }
-        return table;
     }
 
     /**
@@ -69,9 +67,8 @@ public class Solver {
      * @param table the problem table.
      * @param tableX the x length of the problem table.
      * @param tableY the y length of the problem table.
-     * @return the table with all forced bulbs placed.
      */
-    private static int[][] placeForcedBulbs(int[][] table, int tableX, int tableY) {
+    private static void placeForcedBulbs(int[][] table, int tableX, int tableY) {
         boolean bulbsArePlaceable= true;
         while (bulbsArePlaceable) {
             bulbsArePlaceable = false;
@@ -105,8 +102,8 @@ public class Solver {
                     }
                 }
             }
+            markLitCells(table, tableX, tableY);
         }
-        return table;
     }
 
     /**
@@ -141,6 +138,55 @@ public class Solver {
         }
 
         return number;
+    }
+
+    /**
+     * Marks all lit cells.
+     *
+     * @param table the problem table.
+     * @param tableX the x length of the problem table.
+     * @param tableY the y length of the problem table.
+     */
+    private static void markLitCells(int[][] table, int tableX, int tableY) {
+        // marks all lit cells
+        for (int x = 0; x < tableX; x++) {
+            for (int y = 0; y < tableY; y++) {
+                if (table[x][y] == BULB) {
+                    // mark cells underneath
+                    for (int y2 = y + 1; y2 < tableY; y2++) {
+                        if (table[x][y2] == 100) {
+                            table[x][y2] = LIT;
+                        } else if (table[x][y2] != 66) {
+                            break;
+                        }
+                    }
+                    // mark cells to the left
+                    for (int x2 = x - 1; x2 >= 0; x2--) {
+                        if (table[x2][y] == 100) {
+                            table[x2][y] = LIT;
+                        } else if (table[x2][y] != 66){
+                            break;
+                        }
+                    }
+                    // mark cells to the right
+                    for (int x2 = x + 1; x2 < tableX; x2++) {
+                        if (table[x2][y] == 100) {
+                            table[x2][y] = LIT;
+                        } else if (table[x2][y] != 66) {
+                            break;
+                        }
+                    }
+                    // mark cells above
+                    for (int y2 = y - 1; y2 >= 0; y2--) {
+                        if (table[x][y2] == 100) {
+                            table[x][y2] = LIT;
+                        } else if (table[x][y2] != 66) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -313,43 +359,7 @@ public class Solver {
                     }
                 }
 
-                // checks to how many cells are lit
-                if (table[x][y] == BULB) {
-                    // count cells with bulb
-                    litCells[x][y] = LIT;
-                    // count cells underneath
-                    for (int y2 = y + 1; y2 < tableY; y2++) {
-                        if (table[x][y2] > 5) {
-                            litCells[x][y2] = LIT;
-                        } else {
-                            break;
-                        }
-                    }
-                    // count cells to the left
-                    for (int x2 = x - 1; x2 >= 0; x2--) {
-                        if (table[x2][y] > 5) {
-                            litCells[x2][y] = LIT;
-                        } else {
-                            break;
-                        }
-                    }
-                    // count cells to the right
-                    for (int x2 = x + 1; x2 < tableX; x2++) {
-                        if (table[x2][y] > 5) {
-                            litCells[x2][y] = LIT;
-                        } else {
-                            break;
-                        }
-                    }
-                    // count cells above
-                    for (int y2 = y - 1; y2 >= 0; y2--) {
-                        if (table[x][y2] > 5) {
-                            litCells[x][y2] = LIT;
-                        } else {
-                            break;
-                        }
-                    }
-                }
+
             }
         }
 
