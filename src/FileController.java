@@ -67,6 +67,7 @@ public class FileController {
             }
             FileWriter writer = new FileWriter(solutionFilePath, true);
             writer.write("Solution for: " + problemFilePath +  "\r\n\n");
+            writer.write("Bulb coordinates: ");
             for (int x = 0; x < tableX; x++) {
                 for (int y = 0; y < tableY; y++) {
                     // writes each coordinate to the solution file

@@ -8,10 +8,10 @@ public class Solver {
     public static final int EMPTY = 100;
     public static final int BULB = 99;
     public static final int LIT = 88;
+    public static final int ILLEGAL = 66;
 
     /**
-     * Attempts to solve the problem by placing bulbs around black boxed where it can only be performed one way and then
-     * by randomly placing bulbs.
+     * Solves the puzzle.
      *
      * @param table the problem table.
      * @param tableX the x length of the problem table.
@@ -19,33 +19,85 @@ public class Solver {
      * @return the solution as a two dimensional array.
      */
     static int[][] solveProblem( int[][] table, int tableX, int tableY) {
+        // mark illegal cells
+        markIllegalCells(table, tableX, tableY);
         // place bulbs where it is forced by a black cell
+        placeForcedBulbs(table, tableX, tableY);
+
+        return table;
+    }
+
+    /**
+     * Marks everywhere that a bulb cannot be places due to black cells with zero constraint.
+     *
+     * @param table the problem table.
+     * @param tableX the x length of the problem table.
+     * @param tableY the y length of the problem table.
+     * @return the table with illegal cells marked.
+     */
+    private static int[][] markIllegalCells(int[][] table, int tableX, int tableY) {
+        for (int x = 0; x < tableX; x++) {
+            for (int y = 0; y < tableY; y++) {
+                // check to see if cell is a 0 black
+                if (table[x][y] == 0) {
+                    // mark all cells around 0 black as illegal
+                    // checks to see if the cell above exist and is empty
+                    if (y > 0 && table[x][y - 1] == EMPTY) {
+                        table[x][y - 1] = ILLEGAL;
+                    }
+                    // checks to see if the cell to the left exist and is empty
+                    if (x > 0 && table[x - 1][y] == EMPTY) {
+                        table[x - 1][y] = ILLEGAL;
+                    }
+                    // checks to see if the cell to the right exist and is empty
+                    if (x < tableX - 1 && table[x + 1][y] == EMPTY) {
+                        table[x + 1][y] = ILLEGAL;
+                    }
+                    // checks to see if the cell below exist and is empty
+                    if (y < tableY - 1 && table[x][y + 1] == EMPTY) {
+                        table[x][y + 1] = ILLEGAL;
+                    }
+                }
+            }
+        }
+        return table;
+    }
+
+    /**
+     * Places a bulb everywhere it is forced by a black cell.
+     *
+     * @param table the problem table.
+     * @param tableX the x length of the problem table.
+     * @param tableY the y length of the problem table.
+     * @return the table with all forced bulbs placed.
+     */
+    private static int[][] placeForcedBulbs(int[][] table, int tableX, int tableY) {
         boolean bulbsArePlaceable= true;
         while (bulbsArePlaceable) {
             bulbsArePlaceable = false;
             for (int x = 0; x < tableX; x++) {
                 for (int y = 0; y < tableY; y++) {
-                    if (table[x][y] <= 5) {
+                    if (table[x][y] > 0 && table[x][y] < 5) {
                         // check to see if the number of white cells corresponds to the number on the black cell
                         if (table[x][y] == countCellsAround(table, tableX, tableY, x, y, EMPTY)) {
                             // place bulbs around the black cell
-                            // checks to see if the cell above exist, is empty, and if a bulb can be placed there
-                            if ((y > 0) && (table[x][y - 1] == EMPTY) && canPlaceBulb(table, tableX, tableY, x, y)) {
+                            // checks to see if the cell above exist and is empty
+                            if ((y > 0) && (table[x][y - 1] == EMPTY)) {
                                 table[x][y - 1] = BULB;
                                 bulbsArePlaceable = true;
                             }
-                            // checks to see if the cell to the left exist, is empty, and if a bulb can be placed there
-                            if ((x > 0) && (table[x - 1][y] == EMPTY) && canPlaceBulb(table, tableX, tableY, x, y)) {
+                            // checks to see if the cell to the left exist and is empty
+                            if ((x > 0) && (table[x - 1][y] == EMPTY)) {
                                 table[x - 1][y] = BULB;
                                 bulbsArePlaceable = true;
                             }
-                            // checks to see if the cell to the right exist, is empty, and if a bulb can be placed there
-                            if ((x < tableX - 1) && (table[x + 1][y] == EMPTY) && canPlaceBulb(table, tableX, tableY, x, y)) {
+                            // checks to see if the cell to the right exist and is empty
+                            if ((x < tableX - 1) && (table[x + 1][y] == EMPTY)) {
                                 table[x + 1][y] = BULB;
                                 bulbsArePlaceable = true;
                             }
-                            // checks to see if the cell below exist, is empty, and if a bulb can be placed there
-                            if ((y < tableY - 1) && (table[x][y + 1] == EMPTY) && canPlaceBulb(table, tableX, tableY, x, y)) {
+                            // checks to see if the cell below exist and is empty
+                            if ((y < tableY - 1) && (table[x][y + 1] == EMPTY)) {
                                 table[x][y + 1] = BULB;
                                 bulbsArePlaceable = true;
                             }
@@ -54,7 +106,6 @@ public class Solver {
                 }
             }
         }
-
         return table;
     }
 
@@ -104,7 +155,7 @@ public class Solver {
      */
     private static boolean canPlaceBulb(int[][] table, int tableX, int tableY, int x, int y) {
         // check if there is a 0 black cell adjacent
-        if (countCellsAround(table, tableX, tableY, x, y, 0) != 0) {
+        if (table[x][y] == ILLEGAL) {
             return false;
         }
 
