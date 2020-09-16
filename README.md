@@ -24,20 +24,22 @@ Where x is the number of columns, y is the number of rows, x\<i> and y\<i> are t
 specifies the number of bulbs which must be placed adjacent to its four sides with 5 indicating the absence of a number.
 The bottom left of the puzzle should be indexed at (1,1).<br/>
 Do not add blank lines at the start or end of file. <br/><br/>
-Run the run.sh script. Accepted format is:
+Run the run.sh script. The accepted format is:
 >./run.sh [problem file path+name] [solution file path+name]
 
 ## Features
 Implemented:
 * Puzzle file can be read and stored
+* Can solve akari puzzles
 * Solution file can be created
 
 To-do list:
+* Implement cell class instead of using ints
 * Fix script for Windows Machines
-* Implement puzzle solver
+* Analyze code for potential improvements
 
 ## Status
-Project is: _in progress_
+Project is: _finished_
 
 ## Language details
 Language used: Java </br>
