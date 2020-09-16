@@ -2,5 +2,11 @@ Solution file for: problems/a2.txt
 
 Bulb coordinates: 
 1 5
+1 1
 2 4
+3 6
+4 2
+5 7
 5 4
+6 6
+7 3

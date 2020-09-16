@@ -23,7 +23,8 @@ public class Solver {
         markIllegalCells(table, tableX, tableY);
         // place bulbs where it is forced by a black cell
         placeForcedBulbs(table, tableX, tableY);
-
+        // place bulbs in unlit empty cells
+        placePossibleBulbs(table, tableX, tableY);
          return table;
     }
 
@@ -163,6 +164,49 @@ public class Solver {
     }
 
     /**
+     * Places a bulb in every unlit cell that is not marked illegal.
+     *
+     * @param table the problem table.
+     * @param tableX the x length of the problem table.
+     * @param tableY the y length of the problem table.
+     */
+    private static void placePossibleBulbs(int[][] table, int tableX, int tableY) {
+        int unlitCells = countUnlitCells(table, tableX, tableY);
+        while (unlitCells > 0) {
+            for (int x = 0; x < tableX; x++) {
+                for (int y = 0; y < tableY; y++) {
+                    if (table[x][y] == EMPTY) {
+                        // place bulb in empty cell
+                        table[x][y] = BULB;
+                        markLitCells(table, tableX, tableY);
+                        unlitCells = countUnlitCells(table, tableX, tableY);
+                        }
+                    }
+                }
+            }
+    }
+
+    /**
+     * Counts the number of unlit cells.
+     *
+     * @param table the problem table.
+     * @param tableX the x length of the problem table.
+     * @param tableY the y length of the problem table.
+     * @return the number of unlit cells.
+     */
+    private static int countUnlitCells(int[][] table, int tableX, int tableY) {
+        int unlitCells = 0;
+        for (int x = 0; x < tableX; x++) {
+            for (int y = 0; y < tableY; y++) {
+                if (table[x][y] == EMPTY || table[x][y] == ILLEGAL) {
+                    unlitCells++;
+                }
+            }
+        }
+        return unlitCells;
+    }
+
+    /**
      * Marks all lit cells.
      *
      * @param table the problem table.
@@ -209,6 +253,26 @@ public class Solver {
                 }
             }
         }
+    }
+
+    /**
+     * Counts the number of black cells in a problem table.
+     *
+     * @param table the problem table we are counting black cells in.
+     * @param tableX the x length of the problem table.
+     * @param tableY the y length of the problem table.
+     * @return the number of black cells in the problem table.
+     */
+    static int countNumberOfBlackCells(int[][] table, int tableX, int tableY) {
+        int numberOfBlackCells = 0;
+        for (int x = 0; x < tableX; x++) {
+            for (int y = 0; y < tableY; y++) {
+                if (table[x][y] <= 5) {
+                    numberOfBlackCells++;
+                }
+            }
+        }
+        return numberOfBlackCells;
     }
 
     /**
@@ -292,26 +356,6 @@ public class Solver {
         }
 
         return true;
-    }
-
-    /**
-     * Counts the number of black cells in a problem table.
-     *
-     * @param table the problem table we are counting black cells in.
-     * @param tableX the x length of the problem table.
-     * @param tableY the y length of the problem table.
-     * @return the number of black cells in the problem table.
-     */
-    static int countNumberOfBlackCells(int[][] table, int tableX, int tableY) {
-        int numberOfBlackCells = 0;
-        for (int x = 0; x < tableX; x++) {
-            for (int y = 0; y < tableY; y++) {
-                if (table[x][y] <= 5) {
-                    numberOfBlackCells++;
-                }
-            }
-        }
-        return numberOfBlackCells;
     }
 
     /**
