@@ -66,7 +66,7 @@ public class FileController {
                 Files.delete(Paths.get(solutionFilePath));
             }
             FileWriter writer = new FileWriter(solutionFilePath, true);
-            writer.write("Solution for: " + problemFilePath +  "\r\n\n");
+            writer.write("Solution file for: " + problemFilePath +  "\r\n\n");
             writer.write("Bulb coordinates: ");
             for (int x = 0; x < tableX; x++) {
                 for (int y = 0; y < tableY; y++) {

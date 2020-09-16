@@ -23,7 +23,7 @@ public class Solver {
         markIllegalCells(table, tableX, tableY);
         // place bulbs where it is forced by a black cell
         placeForcedBulbs(table, tableX, tableY);
-
+        // mark empty cells around satisfied black cells as illegal
         return table;
     }
 
