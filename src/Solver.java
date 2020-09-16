@@ -23,8 +23,8 @@ public class Solver {
         markIllegalCells(table, tableX, tableY);
         // place bulbs where it is forced by a black cell
         placeForcedBulbs(table, tableX, tableY);
-        // mark empty cells around satisfied black cells as illegal
-        return table;
+
+         return table;
     }
 
     /**
@@ -75,9 +75,30 @@ public class Solver {
             for (int x = 0; x < tableX; x++) {
                 for (int y = 0; y < tableY; y++) {
                     if (table[x][y] > 0 && table[x][y] < 5) {
-                        // check to see if the number of white cells corresponds to the number on the black cell
-                        if (table[x][y] == countCellsAround(table, tableX, tableY, x, y, EMPTY)) {
-                            // place bulbs around the black cell
+                        // mark empty cells around satisfied black cells as illegal
+                        if (table[x][y] == countCellsAround(table, tableX, tableY, x, y, BULB)) {
+                            // checks to see if the cell above exist and is empty
+                            if ((y > 0) && (table[x][y - 1] == EMPTY)) {
+                                table[x][y - 1] = ILLEGAL;
+                                bulbsArePlaceable = true;
+                            }
+                            // checks to see if the cell to the left exist and is empty
+                            if ((x > 0) && (table[x - 1][y] == EMPTY)) {
+                                table[x - 1][y] = ILLEGAL;
+                                bulbsArePlaceable = true;
+                            }
+                            // checks to see if the cell to the right exist and is empty
+                            if ((x < tableX - 1) && (table[x + 1][y] == EMPTY)) {
+                                table[x + 1][y] = ILLEGAL;
+                                bulbsArePlaceable = true;
+                            }
+                            // checks to see if the cell below exist and is empty
+                            if ((y < tableY - 1) && (table[x][y + 1] == EMPTY)) {
+                                table[x][y + 1] = ILLEGAL;
+                                bulbsArePlaceable = true;
+                            }
+                        } // place bulbs around black cell if there is only one way to do so
+                        else if (table[x][y] == countCellsAround(table, tableX, tableY, x, y, EMPTY)) {
                             // checks to see if the cell above exist and is empty
                             if ((y > 0) && (table[x][y - 1] == EMPTY)) {
                                 table[x][y - 1] = BULB;
@@ -102,6 +123,7 @@ public class Solver {
                     }
                 }
             }
+            // mark all lit cells
             markLitCells(table, tableX, tableY);
         }
     }
@@ -154,33 +176,33 @@ public class Solver {
                 if (table[x][y] == BULB) {
                     // mark cells underneath
                     for (int y2 = y + 1; y2 < tableY; y2++) {
-                        if (table[x][y2] == 100) {
+                        if (table[x][y2] == 100 || table[x][y2] == 88 || table[x][y2] == 66) {
                             table[x][y2] = LIT;
-                        } else if (table[x][y2] != 66) {
+                        } else {
                             break;
                         }
                     }
                     // mark cells to the left
                     for (int x2 = x - 1; x2 >= 0; x2--) {
-                        if (table[x2][y] == 100) {
+                        if (table[x2][y] == 100 || table[x2][y] == 88 || table[x2][y] == 66) {
                             table[x2][y] = LIT;
-                        } else if (table[x2][y] != 66){
+                        } else {
                             break;
                         }
                     }
                     // mark cells to the right
                     for (int x2 = x + 1; x2 < tableX; x2++) {
-                        if (table[x2][y] == 100) {
+                        if (table[x2][y] == 100 || table[x2][y] == 88 || table[x2][y] == 66) {
                             table[x2][y] = LIT;
-                        } else if (table[x2][y] != 66) {
+                        } else {
                             break;
                         }
                     }
                     // mark cells above
                     for (int y2 = y - 1; y2 >= 0; y2--) {
-                        if (table[x][y2] == 100) {
+                        if (table[x][y2] == 100 || table[x][y2] == 88 || table[x][y2] == 66) {
                             table[x][y2] = LIT;
-                        } else if (table[x][y2] != 66) {
+                        } else {
                             break;
                         }
                     }

@@ -1,4 +1,4 @@
-Solution for: problems/a1.txt
+Solution file for: problems/a1.txt
 
 Bulb coordinates: 
 1 3

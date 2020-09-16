@@ -1,0 +1,6 @@
+Solution file for: problems/b2.txt
+
+Bulb coordinates: 
+4 1
+10 10
+12 13

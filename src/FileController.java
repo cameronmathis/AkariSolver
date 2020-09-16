@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -36,16 +37,20 @@ public class FileController {
                 }
             }
             while (myReader.hasNextLine()) {
-                // subtract 1 since the array index starts at 0 and not 1
-                int x = myReader.nextInt() - 1;
-                // subtract it from five since array indexing starts at 0 and the top instead of 1 and the bottom
-                int y = tableY - myReader.nextInt();
-                int z = myReader.nextInt();
-                result[x][y] = z;
+                try {
+                    // subtract 1 since the array index starts at 0 and not 1
+                    int x = myReader.nextInt() - 1;
+                    // subtract it from five since array indexing starts at 0 and the top instead of 1 and the bottom
+                    int y = tableY - myReader.nextInt();
+                    int z = myReader.nextInt();
+                    result[x][y] = z;
+                } catch (NoSuchElementException e) {
+                    System.out.println("Incorrect problem file format.");
+                }
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Problem file not found.");
             e.printStackTrace();
         }
         return result;
