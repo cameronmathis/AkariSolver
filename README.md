@@ -10,7 +10,7 @@ This is a Java Application that solves Akari Puzzles.
 * [Contact](#contact)
 
 ## General info
-This is a project I decided I wanted to do after a HW assignment from one of my course at Auburn University. I was curious if I could do it, and if so how long it would take.
+This is a project I decided I wanted to do after a HW assignment from one of my course at Auburn University. I was curious if I could do it, and if so how long it would take (about 2 days).
 
 ## Setup
 In order to run, clone this repo onto your local machine. <br/><br/>
