@@ -1,5 +1,5 @@
 #!/bin/bash
 # compile the program in Java
-javac ./src/*.java
+javac -d out ./src/*.java
 # execute the program
-java -cp ./src Main $1 $2
+java -cp out Main $1 $2

@@ -13,7 +13,7 @@ This is a Java Application that solves Akari Puzzles.
 This is a project I decided I wanted to do after a HW assignment from one of my course at Auburn University. I was curious if I could do it, and if so how long it would take (about 2 days).
 
 ## Setup
-In order to run, clone this repo onto your local machine. <br/><br/>
+In order to run, clone this repo onto your local machine. <br/>
 Create a .txt file of the puzzle in the following format: 
 >x <br/>
 >y <br/>
@@ -27,6 +27,9 @@ Do not add blank lines at the start or end of file. <br/><br/>
 Run the run.sh script. The accepted format is:
 >./run.sh [problem file path+name] [solution file path+name]
 
+Example:
+>./run.sh problems/a1.txt solutions/a1.txt
+
 ## Features
 Implemented:
 * Puzzle file can be read and stored
@@ -35,8 +38,6 @@ Implemented:
 
 To-do list:
 * Implement cell class instead of using ints
-* Fix script for Windows Machines
-* Analyze code for potential improvements
 
 ## Status
 Project is: _finished_
